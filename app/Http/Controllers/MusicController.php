@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Music;
+use App\Models\Like;
+use App\Models\Category;
+use App\User;
+
 
 class MusicController extends Controller
 {
@@ -43,10 +48,30 @@ class MusicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        //キーワードを受け取る
+        $keyword = $request -> input('keyword');
+        #クエリ生成
+        $query = Music::query();
+        dd($query);
+        #もしキーワードがあったら
+        if(!empty($keyword))
+        {
+            $message = "検索できました";
+            $musics = $query->where('title','like','%'.$keyword.'%') -> get();
+            dd($musics -> title);
+        }else {
+            $message = "検索結果ありません";
+        }
+
+        return view('musics.show')->with([
+            'message' => $message,
+            'musics' => $musics,
+        ]);
+        
     }
+
 
     /**
      * Show the form for editing the specified resource.
