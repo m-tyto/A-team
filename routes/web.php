@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/', function () {
+    return view('musics.index');
+});
 Route::resource('musics','MusicController')->only(['index','show','create']);
 Route::resource('categories','CategoryController')->only(['index']);
 Route::resource('users','UserController')->only(['index','create','show']);
