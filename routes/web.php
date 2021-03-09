@@ -15,4 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('musics','MusicController')->only(['index','show','create']);
 Route::resource('categories','CategoryController')->only(['index']);
-Route::resource('users','UserController')->only(['index','create','show']);
+Route::resource('users','UserController')->only(['index','create','show','store']);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
