@@ -51,25 +51,41 @@ class MusicController extends Controller
     public function show(Request $request)
     {
         //キーワードを受け取る
-        $keyword = $request -> input('keyword');
+        $Keyword = $request -> input('keyword');
+        $Category = $request -> input('category');
         #クエリ生成
         $query = Music::query();
-        dd($query);
+        $query1= Category::query();
         #もしキーワードがあったら
-        if(!empty($keyword))
+        if(!empty($Keyword))
         {
             $message = "検索できました";
-            $musics = $query->where('title','like','%'.$keyword.'%') -> get();
-            dd($musics -> title);
-        }else {
+            $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
+            foreach($musics as $music){
+            $category=$music-> category ->name;
+            }
+            return view('musics.show')->with([
+                'message' => $message,
+                'musics' => $musics,
+                'category' => $category,
+            ]);
+        }elseif (!empty($Category)){
+            $message = "検索できました";
+            $categories = $query1->where('name','like', '%'.$Category.'%')-> get();
+            foreach($categories as $category){
+            $id=$category-> id ;
+            $music= Music::find($id) ;
+            }
+            // dd($music);
+            return view('musics.show')->with([
+                'message' => $message,
+                'music' => $music,
+                'categories' => $categories,
+            ]);
+        }
+        else {
             $message = "検索結果ありません";
         }
-
-        return view('musics.show')->with([
-            'message' => $message,
-            'musics' => $musics,
-        ]);
-        
     }
 
 

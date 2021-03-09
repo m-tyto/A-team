@@ -1,6 +1,8 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
+use App\Models\Music;
+use App\Models\Like;
+use App\Models\Category;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('musics.index');
+    $query = Music::query();
+    $query1= Like::query();
+    $query2=Category::query();
+    $md = Music::get();
+    $categories = Category::get();
+    return view('musics.index')->with([
+        'categories' => $categories,
+        'md' => $md,
+    ]);
 });
 Route::resource('musics','MusicController')->only(['index','show','create']);
 Route::resource('categories','CategoryController')->only(['index']);

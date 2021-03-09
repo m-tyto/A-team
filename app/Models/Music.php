@@ -14,18 +14,16 @@ class Music extends Model
         'text',
         'link',
     ];
-
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
-
     public function category()
     {
         return $this->belongsTo(Category::class);
     }
     public function user()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(User::class);
     }
 }
