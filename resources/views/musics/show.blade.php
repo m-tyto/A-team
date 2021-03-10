@@ -1,28 +1,28 @@
-@extends('layouts.app')
+@extends('layouts2.app')
 @section('title', 'Index')
 @section('content')
 <div class="music">
 <h2>{{ $message }}</h2>
-@if(!empty($musics))
-<div>
+
+
+@if(!empty($Music))
+    <div>
+        <h2>{{ $Music }}</h2>
+        @foreach($musics as $music)
+        <div> <h2>{{$category=$music-> category ->name}}</h2></div>
+        @endforeach 
+    </div>
+@endif
+
+@if(!empty($Category))
+    <div>
+    <h2>{{ $Category }}</h2>
     @foreach ($musics as $music)
     <h2>{{ $music -> title}}</h2>
     <h2>{{ $music -> text}}</h2>
     <h2>{{ $music -> category_id}}</h2>
     <h2>{{ $music -> artist}}</h2>
     @endforeach
-    <h2>{{ $category}}</h2>
-    </div>
-@endif
-@if(!empty($categories))
-    <div>
-    @foreach ($categories as $category)
-    <h2>{{ $category -> name}}</h2>
-    @endforeach
-    <h2>{{ $music -> title}}</h2>
-    <h2>{{ $music -> text}}</h2>
-    <h2>{{ $music -> category_id}}</h2>
-    <h2>{{ $music -> artist}}</h2>
     </div>
 </div>
 @endif
