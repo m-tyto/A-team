@@ -10,4 +10,7 @@ class Category extends Model
         'name',
         'music_id',
     ];
+    public function musics(){
+        return $this->hasmany("App\Models\Music");
+    }
 }
