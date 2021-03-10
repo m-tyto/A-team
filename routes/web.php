@@ -19,5 +19,3 @@ Route::resource('users','UserController')->only(['index','create','show','store'
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
