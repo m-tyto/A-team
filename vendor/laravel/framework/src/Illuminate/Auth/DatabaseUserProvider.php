@@ -101,7 +101,7 @@ class DatabaseUserProvider implements UserProvider
     {
         if (empty($credentials) ||
            (count($credentials) === 1 &&
-            array_key_exists($credentials))) {
+            array_key_exists('password', $credentials))) {
             return;
         }
 
@@ -111,7 +111,7 @@ class DatabaseUserProvider implements UserProvider
         $query = $this->conn->table($this->table);
 
         foreach ($credentials as $key => $value) {
-            if (Str::contains($key)) {
+            if (Str::contains($key, 'password')) {
                 continue;
             }
 
@@ -153,7 +153,7 @@ class DatabaseUserProvider implements UserProvider
     public function validateCredentials(UserContract $user, array $credentials)
     {
         return $this->hasher->check(
-            $credentials['name'], $user->getAuthPassword()
+            $credentials['password'], $user->getAuthPassword()
         );
     }
 }
