@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
-    //fillable指定してません
+
+    protected $fillable = [
+        'user_id',
+        'music_id',
+    ];
 
     public function user(){
         return $this->belongsTo("App\User");

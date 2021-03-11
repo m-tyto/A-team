@@ -10,6 +10,7 @@ use App\Models\Like;
 use App\User;
 use Validator;
 
+
 class MusicController extends Controller
 {
     /**
@@ -57,10 +58,46 @@ class MusicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        //キーワードを受け取る
+        $Keyword = $request -> input('keyword');
+        $Category = $request -> input('category');
+        #クエリ生成
+        $query = Music::query();
+        $query1= Category::query();
+        #もしキーワードがあったら
+        if(!empty($Keyword))
+        {
+            $message = "検索できました";
+            $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
+            foreach($musics as $music){
+            $category=$music-> category ->name;
+            }
+            return view('musics.show')->with([
+                'message' => $message,
+                'musics' => $musics,
+                'category' => $category,
+            ]);
+        }elseif (!empty($Category)){
+            $message = "検索できました";
+            $categories = $query1->where('name','like', '%'.$Category.'%')-> get();
+            foreach($categories as $category){
+            $id=$category-> id ;
+            $music= Music::find($id) ;
+            }
+            // dd($music);
+            return view('musics.show')->with([
+                'message' => $message,
+                'music' => $music,
+                'categories' => $categories,
+            ]);
+        }
+        else {
+            $message = "検索結果ありません";
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.

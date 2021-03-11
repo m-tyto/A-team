@@ -17,6 +17,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'display_name', 'password',
+
     ];
 
     /**
@@ -37,11 +38,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     public function likes(){
         return $this->hasmany("App\Models\Like");
     }
 
     public function musics(){
         return $this->hasmany("App\Models\Music");
+
     }
 }
