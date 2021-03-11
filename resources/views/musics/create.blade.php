@@ -5,5 +5,6 @@
   @foreach($categories as $category)
         <p>{{ $category->name }}</p>
         <input type="checkbox" >
+        <input type="text">
 </form>
 @endsection
