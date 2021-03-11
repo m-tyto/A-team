@@ -81,4 +81,26 @@ class MusicController extends Controller
     {
         //
     }
+
+    public function like($id)
+  {
+    Like::create([
+      'music_id' => $id,
+      'user_id' => Auth::id(),
+    ]);
+
+    session()->flash('success', 'You Liked the Music.');
+
+    return redirect()->back();
+  }
+
+    public function unlike($id)
+    {
+        $like = Like::where('music_id', $id)->where('user_id', Auth::id())->first();
+        $like->delete();
+
+        session()->flash('success', 'You Unliked the Music.');
+
+        return redirect()->back();
+  }
 }
