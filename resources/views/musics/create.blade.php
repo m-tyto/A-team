@@ -2,6 +2,8 @@
 @section('content')
 <form action="{{ url('musics') }}" method="POST">
   <p>カテゴリ</p>
-  <input type="checkbox">
+  @foreach($categories as $category)
+        <p>{{ $category->name }}</p>
+        <input type="checkbox" >
 </form>
 @endsection
