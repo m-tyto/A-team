@@ -6,24 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Music extends Model
 {
-    protected $fillable = [
-        'title',
-        'category_id',
-        'artist',
-        'user_id',
-        'text',
-        'link',
-    ];
-    public function likes()
-    {
-        return $this->hasMany(Like::class);
+
+    protected $fillable = ["id", "artist", "title", "text", "link"];
+
+    public function category(){
+        return $this->belongsTo("App\Models\Category");
     }
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
+
+    public function user(){
+        return $this->belongsTo("App\User");
     }
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+
+    public function likes(){
+        return $this->hasmany("App\Models\Like");
+
     }
 }
