@@ -5,22 +5,27 @@
 @if (Route::has('login'))
     <div class="top-right links">
     @auth
-        <a href="{{ url('/musics') }}">マイページ</a>
-        <a href="{{ route('logout') }}"
+    <ul>
+        <li><a href="{{ url('/musics') }}">マイページ</a></li>
+        <li><a href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
             ログアウト
-        </a>
+        </a></li>
+        <li><a href="{{ url('/musics/create') }}">投稿する</a></li>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf
         </form>
+    </ul>
     </div>
     @else
-        <a href="{{ route('login') }}">ログイン</a>
+    <ul>
+        <li><a href="{{ route('login') }}">ログイン</a></li>
 
         @if (Route::has('register'))
-            <a href="{{ route('register') }}">新規登録</a>
+            <li><a href="{{ route('register') }}">新規登録</a></li>
         @endif
+    </ul>    
     @endauth
 @endif

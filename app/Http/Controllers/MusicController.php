@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Music;
+use App\Models\Category;
+use App\Models\Like;
+use App\User;
+use Validator;
 
 class MusicController extends Controller
 {
@@ -24,6 +30,14 @@ class MusicController extends Controller
     public function create()
     {
         
+        $categories = Category::All();
+        $artists = Music::All();
+        $user_id = Auth::id();
+        if(!$user_id){
+            return view("auth.login");
+        }
+
+        return view("musics.create");
     }
 
     /**
