@@ -27,7 +27,7 @@ Route::get('/', function () {
         'md' => $md,
     ]);
 });
-Route::resource('musics','MusicController')->only(['index','show','create']);
+Route::resource('musics','MusicController')->only(['index','show','create','store']);
 Route::resource('categories','CategoryController')->only(['index']);
 Route::resource('users','UserController')->only(['show']);
 Auth::routes();

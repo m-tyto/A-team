@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title', 'Index')
 @section('content')
-
+<p>test</p>
+<?php /*
     <div class="music">
         <div class='search-box'>
             <div class="category-box"></div>
@@ -23,7 +23,7 @@
         <div class="ranking-box">
         @foreach ($categories as $category)
             <div class="ranking">
-                {{ $category_id= $category -> id}}
+                {{ $category_id = $category -> id}}
                 {{ $category -> name}}
                 {{ $musics = $md->where('category_id', $category_id) }} 
                 @foreach ($musics as $music)
@@ -33,6 +33,7 @@
         @endforeach
         </div>
     </div>
+    */?>
 @endsection
 
 

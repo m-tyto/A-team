@@ -32,13 +32,17 @@ class MusicController extends Controller
     {
         
         $categories = Category::All();
-        $artists = Music::All();
+        $artists = Music::select('artist')->distinct()->get();
         $user_id = Auth::id();
         if(!$user_id){
             return view("auth.login");
         }
 
-        return view("musics.create");
+        return view("musics.create")->with([
+            'categories' => $categories,
+            'artists' => $artists,
+            'user_id' => $user_id
+            ]);;
     }
 
     /**
