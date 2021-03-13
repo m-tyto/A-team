@@ -20,7 +20,15 @@ class MusicController extends Controller
      */
     public function index()
     {
-        return view('musics.index');
+        $query = Music::query();
+        $query1= Like::query();
+        $query2=Category::query();
+        $md = Music::get();
+        $categories = Category::get();
+        return view('musics.index')->with([
+            'categories' => $categories,
+            'md' => $md,]);
+        
     }
 
     /**
@@ -53,7 +61,7 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

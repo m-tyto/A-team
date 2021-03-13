@@ -1,18 +1,18 @@
 <?php
     //headerはログイン状態かどうかによって表示内容が変わる仕様にしてます
 ?>
-<h2><a href="{{ url('/musics') }}">Music Life</a></h2>
+<h2><a href="{{ url('/') }}">Music Life</a></h2>
 @if (Route::has('login'))
     <div class="top-right links">
     @auth
     <ul>
-        <li><a href="{{ url('/musics') }}">マイページ</a></li>
+        <li><a href="{{ url('/') }}">マイページ</a></li>
         <li><a href="{{ route('logout') }}"
             onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
             ログアウト
         </a></li>
-        <li><a href="{{ url('/musics/create') }}">投稿する</a></li>
+        <li><a href="{{ url('/create') }}">投稿する</a></li>
 
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
             @csrf

@@ -16,18 +16,8 @@ use App\User;
 */
 
 
-Route::get('/', function () {
-    $query = Music::query();
-    $query1= Like::query();
-    $query2=Category::query();
-    $md = Music::get();
-    $categories = Category::get();
-    return view('musics.index')->with([
-        'categories' => $categories,
-        'md' => $md,
-    ]);
-});
-Route::resource('musics','MusicController')->only(['index','show','create','store']);
+
+Route::resource('/','MusicController')->only(['index','show','create','store']);
 Route::resource('categories','CategoryController')->only(['index']);
 Route::resource('users','UserController')->only(['show']);
 Auth::routes();
