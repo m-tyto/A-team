@@ -11,13 +11,10 @@
 
         <div class="form-group row">
             <label for="name">ユーザーID</label>
-
             <div class="col-md-6">
                 <input type="text" name="name" autocomplete="off">
             </div>
         </div>
-
-
 
         <div class="form-group row">
             <label for="display_name">ニックネーム</label>

@@ -441,12 +441,21 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
+<<<<<<< HEAD
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2c3c9e409fac847f9d5321a4a7a0164cc8c6eb4a',
+=======
       'pretty_version' => '1.0.0+no-version-set',
       'version' => '1.0.0.0',
       'aliases' => 
       array (
       ),
       'reference' => NULL,
+>>>>>>> develop
     ),
     'laravel/tinker' => 
     array (

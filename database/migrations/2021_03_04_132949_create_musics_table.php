@@ -21,6 +21,7 @@ class CreateMusicsTable extends Migration
             $table->string('artist');
             $table->text('text')->nullable();
             $table->text('link')->nullable();
+            $table->integer ('likescount');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

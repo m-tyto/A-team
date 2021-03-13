@@ -56,39 +56,49 @@ class MusicController extends Controller
         #クエリ生成
         $query = Music::query();
         $query1= Category::query();
-        #もしキーワードがあったら
+        // 曲が入力されたら
         if(!empty($Keyword))
         {
+            $Music = $Keyword ;
             $message = "検索できました";
             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
-            foreach($musics as $music){
-            $category=$music-> category ->name;
-            }
+            // dd($musics);
+            // foreach($musics as $music){
+            // $categories=$music-> category ->name;
+            // }
+            // dd($musics1);
             return view('musics.show')->with([
                 'message' => $message,
                 'musics' => $musics,
-                'category' => $category,
+                'Music' => $Music,
             ]);
+        // もしカテゴリが選択されたら
         }elseif (!empty($Category)){
-            $message = "検索できました";
-            $categories = $query1->where('name','like', '%'.$Category.'%')-> get();
+            $categories = $query1->where('name',$Category)-> get();
             foreach($categories as $category){
-            $id=$category-> id ;
-            $music= Music::find($id) ;
+            $id=$category-> id;
+            $musics= $query->where('category_id',$id)-> get();
             }
-            // dd($music);
-            return view('musics.show')->with([
-                'message' => $message,
-                'music' => $music,
-                'categories' => $categories,
-            ]);
+            if (empty($musics)){
+                $message = '曲がありません';
+                return view('musics.show')->with([
+                    'message' => $message,
+                ]);
+            }else{
+                $count = $musics -> count();
+                $message =  '曲が' . $count . '曲あります';
+                return view('musics.show')->with([
+                    'message' => $message,
+                    'musics' => $musics,
+                    'Category' => $Category,
+                    'id' => $id,
+                ]);
+            }
         }
         else {
             $message = "検索結果ありません";
         }
     }
-
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -122,4 +132,19 @@ class MusicController extends Controller
     {
         //
     }
+
+    public function countlike(Request $request)
+    {
+        $music = $request -> music;
+        $likescount = $request -> likescount;
+        $id = $request -> id;
+        $query = Music::query();
+        $query
+        ->where('id', $id)
+        ->update([
+            'likescount' => $likescount+1
+        ]);
+        return back() ;
+    }
+
 }

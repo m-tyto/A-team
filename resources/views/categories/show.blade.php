@@ -5,6 +5,12 @@
 @section('content')
 <h1>{{$category_id = $category -> id }} {{$category->name}}</h1>
 @foreach ($md->where('category_id', $category_id) -> sortByDesc('likescount') as $music)
+                    @php
+                    $i = 0
+                    @endphp
+                    @if($i >= 3)
+                    @break
+                    @else
                     <div class="number">
                         <div class="title">{{ $music -> title }}</div>
                         <div class="likes"> 
@@ -20,5 +26,9 @@
                             </div>
                         </div>
                     </div>
+                    @php
+                    $i++
+                    @endphp
+                    @endif
                 @endforeach 
 @endsection

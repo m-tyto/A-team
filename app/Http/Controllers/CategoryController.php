@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Music;
+use App\Models\Like;
+use App\Models\Category;
+use App\User;
 
 class CategoryController extends Controller
 {
@@ -11,9 +15,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($name)
     {
-        //
+
     }
 
     /**
@@ -45,7 +49,14 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        //カテゴリの中にある曲を表示させる
+        $md = Music::get();
+        $category = Category::get();
+        $category = Category::find($id) ;
+        return view('categories.index')->with([
+            'category' => $category,
+            'md' => $md,
+        ]);
     }
 
     /**
