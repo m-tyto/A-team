@@ -25,8 +25,9 @@
     @endif
 </nav>
 <nav>
-    <a href= >
+    <a href= "{{ url('/create') }}">
         <bottun  type ="button" class=btn> 投稿 </bottun>
     </a>
 </nav>
 
+>>>>>>> develop
