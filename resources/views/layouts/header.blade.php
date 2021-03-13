@@ -1,6 +1,3 @@
-<?php
-    //headerはログイン状態かどうかによって表示内容が変わる仕様にしてます
-?>
 <nav>
     <h2 class="music-life"><a href="{{ url('/') }}">Music Life</a></h2>
 </nav>
@@ -32,3 +29,4 @@
         <bottun  type ="button" class=btn> 投稿 </bottun>
     </a>
 </nav>
+

@@ -1,4 +1,4 @@
-body {
+.body {
     font-family: Arial, Helvetica, sans-serif;
     min-width: 720px;
     max-width: 100%;
@@ -6,9 +6,9 @@ body {
     margin-right: auto;
     margin-left: auto;
 }
-/*--------------------------------------------------
+/* --------------------------------------------------
   index page
----------------------------------------------------*/
+--------------------------------------------------- */
 .music{
     background-color: aqua;
     width: 100%;

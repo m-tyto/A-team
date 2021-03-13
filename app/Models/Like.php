@@ -6,16 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Like extends Model
 {
+
     protected $fillable = [
         'user_id',
         'music_id',
     ];
-    public function users()
-    {
-        return $this->belongsTo(User::class);
+
+
+    public function user(){
+        return $this->belongsTo("App\User");
     }
-    public function musics()
-    {
-        return $this->belongsTo(Music::class);
+
+    public function music(){
+        return $this->belongsTo("App\Models\Music");
     }
 }
