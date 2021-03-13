@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Music;
-use App\Models\Like;
 use App\Models\Category;
+use App\Models\Like;
 use App\User;
+use Validator;
 
 
 class MusicController extends Controller
@@ -18,7 +20,15 @@ class MusicController extends Controller
      */
     public function index()
     {
-        return view('musics.index');
+        $query = Music::query();
+        $query1= Like::query();
+        $query2=Category::query();
+        $md = Music::get();
+        $categories = Category::get();
+        return view('musics.index')->with([
+            'categories' => $categories,
+            'md' => $md,]);
+        
     }
 
     /**
@@ -29,6 +39,18 @@ class MusicController extends Controller
     public function create()
     {
         
+        $categories = Category::All();
+        $artists = Music::select('artist')->distinct()->get();
+        $user_id = Auth::id();
+        if(!$user_id){
+            return view("auth.login");
+        }
+
+        return view("musics.create")->with([
+            'categories' => $categories,
+            'artists' => $artists,
+            'user_id' => $user_id
+            ]);;
     }
 
     /**
@@ -39,7 +61,7 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -56,39 +78,49 @@ class MusicController extends Controller
         #クエリ生成
         $query = Music::query();
         $query1= Category::query();
-        #もしキーワードがあったら
+        // 曲が入力されたら
         if(!empty($Keyword))
         {
+            $Music = $Keyword ;
             $message = "検索できました";
             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
-            foreach($musics as $music){
-            $category=$music-> category ->name;
-            }
+            // dd($musics);
+            // foreach($musics as $music){
+            // $categories=$music-> category ->name;
+            // }
+            // dd($musics1);
             return view('musics.show')->with([
                 'message' => $message,
                 'musics' => $musics,
-                'category' => $category,
+                'Music' => $Music,
             ]);
+        // もしカテゴリが選択されたら
         }elseif (!empty($Category)){
-            $message = "検索できました";
-            $categories = $query1->where('name','like', '%'.$Category.'%')-> get();
+            $categories = $query1->where('name',$Category)-> get();
             foreach($categories as $category){
-            $id=$category-> id ;
-            $music= Music::find($id) ;
+            $id=$category-> id;
+            $musics= $query->where('category_id',$id)-> get();
             }
-            // dd($music);
-            return view('musics.show')->with([
-                'message' => $message,
-                'music' => $music,
-                'categories' => $categories,
-            ]);
+            if (empty($musics)){
+                $message = '曲がありません';
+                return view('musics.show')->with([
+                    'message' => $message,
+                ]);
+            }else{
+                $count = $musics -> count();
+                $message =  '曲が' . $count . '曲あります';
+                return view('musics.show')->with([
+                    'message' => $message,
+                    'musics' => $musics,
+                    'Category' => $Category,
+                    'id' => $id,
+                ]);
+            }
         }
         else {
             $message = "検索結果ありません";
         }
     }
-
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -144,4 +176,18 @@ class MusicController extends Controller
 
         return redirect()->back();
   }
+    // public function countlike(Request $request)
+    // {
+    //     $music = $request -> music;
+    //     $likescount = $request -> likescount;
+    //     $id = $request -> id;
+    //     $query = Music::query();
+    //     $query
+    //     ->where('id', $id)
+    //     ->update([
+    //         'likescount' => $likescount+1
+    //     ]);
+    //     return back() ;
+    // }
+
 }

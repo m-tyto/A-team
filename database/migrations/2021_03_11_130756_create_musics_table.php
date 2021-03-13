@@ -11,6 +11,7 @@ class CreateMusicsTable extends Migration
      *
      * @return void
      */
+    protected $table = 'musics';
     public function up()
     {
         Schema::create('musics', function (Blueprint $table) {
@@ -21,6 +22,7 @@ class CreateMusicsTable extends Migration
             $table->string('artist');
             $table->text('text')->nullable();
             $table->text('link')->nullable();
+            $table->integer ('likescount');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

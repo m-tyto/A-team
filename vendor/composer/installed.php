@@ -423,6 +423,12 @@
       array (
       ),
       'reference' => 'e37dcb07b23fad811eb4e459ef69e5daac216109',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2c3c9e409fac847f9d5321a4a7a0164cc8c6eb4a',
     ),
     'laravel/tinker' => 
     array (
