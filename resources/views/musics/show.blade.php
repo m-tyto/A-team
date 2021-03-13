@@ -17,6 +17,7 @@
 @if(!empty($Category))
     <div>
     <h2>{{ $Category }}</h2>
+    <a href="{{ route ('categories.show', $id )}}">{{$Category}} </a>
     @foreach ($musics as $music)
     <h2>{{ $music -> title}}</h2>
     <h2>{{ $music -> text}}</h2>

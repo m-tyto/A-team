@@ -91,6 +91,7 @@ class MusicController extends Controller
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
+                    'id' => $id,
                 ]);
             }
         }
@@ -143,7 +144,7 @@ class MusicController extends Controller
         ->update([
             'likescount' => $likescount+1
         ]);
-        return redirect (route('index'));
+        return back() ;
     }
 
 }

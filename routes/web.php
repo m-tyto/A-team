@@ -28,7 +28,7 @@ Route::get('/', function () {
     ]);
 }) -> name('index');
 Route::resource('musics','MusicController')->only(['index','show','create']);
-Route::resource('categories','CategoryController')->only(['index']);
+Route::resource('categories','CategoryController')->only(['index','show']);
 Route::resource('users','UserController')->only(['index','create','show','store']);
 Route::post('countlikes','MusicController@countlike')-> name('countlike');
 

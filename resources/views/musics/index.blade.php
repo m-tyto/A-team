@@ -30,10 +30,10 @@
             @foreach ($categories as $category)
             <div class="ranking">
                 <div class="category">
-                    {{ $category_id= $category -> id}}
-                    {{$category->name}} 
+                        {{$id = $category -> id }}
+                        <a href="{{ route ('categories.show', $id )}}">{{$category->name}} </a>
                 </div>
-                @foreach ($md->where('category_id', $category_id) -> sortByDesc('likescount') as $music)
+                @foreach ($md->where('category_id', $id) -> sortByDesc('likescount') as $music)
                     @php
                     $i = 0
                     @endphp
