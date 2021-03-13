@@ -29,5 +29,3 @@
         <bottun  type ="button" class=btn> 投稿 </bottun>
     </a>
 </nav>
-
->>>>>>> develop
