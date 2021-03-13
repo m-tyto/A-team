@@ -94,3 +94,22 @@ body {
     height: 25%;
     background-color: lawngreen;
 }
+
+ 
+/*--------------------------------------------------
+  header page
+---------------------------------------------------*/
+
+.btn{
+    float: right;
+    border: 1px solid green;
+    border-radius: 5px;
+    background-color: green;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    width: 150px;
+}
+.top-right {
+    width: 500px;
+}

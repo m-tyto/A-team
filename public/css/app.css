@@ -3625,6 +3625,8 @@ input[type=button].btn-block {
   font-size: 0.7875rem;
   color: #6c757d;
   white-space: nowrap;
+  float: left;
+
 }
 
 .dropdown-item-text {
@@ -5041,6 +5043,7 @@ input[type=button].btn-block {
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  float: left;
 }
 
 .card-header:first-child {
@@ -5062,6 +5065,7 @@ input[type=button].btn-block {
   margin-bottom: -0.75rem;
   margin-left: -0.625rem;
   border-bottom: 0;
+  float: left;
 }
 
 .card-header-pills {

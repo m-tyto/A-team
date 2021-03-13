@@ -1,4 +1,4 @@
-@extends('layouts2.app')
+@extends('layouts.app')
 @section('title', 'Index')
 @section('content')
 <div class="music">
