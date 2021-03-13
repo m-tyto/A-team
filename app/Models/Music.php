@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Music extends Model
 {
+    protected $table = 'musics';
     protected $fillable = ["id", "artist", "title", "text", "link"];
 
     public function category(){
@@ -34,5 +35,7 @@ class Music extends Model
         } else {
         return false;
         }
+        // return $this->hasmany("App\Models\Like");
+
     }
 }

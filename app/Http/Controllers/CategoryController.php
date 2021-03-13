@@ -45,7 +45,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        return view('categories.show');
+        $md = Music::get();
+        $category = Category::get();
+        $category = Category::find($id) ;
+        return view('categories.show')->with([
+            'category' => $category,
+            'md' => $md,
+        ]);
     }
 
     /**
