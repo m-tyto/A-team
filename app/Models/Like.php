@@ -12,6 +12,7 @@ class Like extends Model
         'music_id',
     ];
 
+
     public function user(){
         return $this->belongsTo("App\User");
     }

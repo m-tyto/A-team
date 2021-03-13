@@ -1,31 +1,33 @@
-<?php
-    //headerはログイン状態かどうかによって表示内容が変わる仕様にしてます
-?>
-<h2><a href="{{ url('/') }}">Music Life</a></h2>
-@if (Route::has('login'))
-    <div class="top-right links">
-    @auth
-    <ul>
-        <li><a href="{{ url('/') }}">マイページ</a></li>
-        <li><a href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();">
-            ログアウト
-        </a></li>
-        <li><a href="{{ url('/create') }}">投稿する</a></li>
+<nav>
+    <h2 class="music-life"><a href="{{ url('/') }}">Music Life</a></h2>
+</nav>
+<nav>
+    @if (Route::has('login'))
+        <div class="top-right links">
+        @auth
+            <a href="{{ url('/musics') }}">マイページ</a>
+            <a href="{{ route('logout') }}"
+                onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+                ログアウト
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+        </div>
+        @else
+            <a href="{{ route('login') }}">ログイン</a>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-            @csrf
-        </form>
-    </ul>
-    </div>
-    @else
-    <ul>
-        <li><a href="{{ route('login') }}">ログイン</a></li>
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}">新規登録</a>
+            @endif
+        @endauth
+    @endif
+</nav>
+<nav>
+    <a href= "{{ url('/create') }}">
+        <bottun  type ="button" class=btn> 投稿 </bottun>
+    </a>
+</nav>
 
-        @if (Route::has('register'))
-            <li><a href="{{ route('register') }}">新規登録</a></li>
-        @endif
-    </ul>    
-    @endauth
-@endif
+>>>>>>> develop

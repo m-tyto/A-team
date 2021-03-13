@@ -17,8 +17,12 @@ use App\User;
 
 
 
-Route::resource('/','MusicController')->only(['index','show','create','store']);
-Route::resource('categories','CategoryController')->only(['index']);
-Route::resource('users','UserController')->only(['show']);
+Route::resource('/','MusicController')->only(['index','show','create']);
+Route::resource('categories','CategoryController')->only(['index','show']);
+Route::resource('users','UserController')->only(['index','create','show','store']);
+Route::post('countlikes','MusicController@countlike')-> name('countlike');
 Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
+
+
 
