@@ -7,6 +7,7 @@ use App\Models\Music;
 use App\Models\Like;
 use App\Models\Category;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -50,12 +51,13 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
+        $music = new Music;
         $md = Music::get();
-        $category = Category::get();
         $category = Category::find($id) ;
         return view('categories.show')->with([
             'category' => $category,
             'md' => $md,
+            'music' => $music
         ]);
     }
 
