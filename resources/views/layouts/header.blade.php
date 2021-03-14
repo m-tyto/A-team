@@ -14,6 +14,11 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
+            <nav>
+                <a href= "{{ url('/create') }}">
+                    <bottun  type ="button"> 投稿 </bottun>
+                </a>
+            </nav>
         </div>
         @else
             <a href="{{ route('login') }}">ログイン</a>
@@ -23,9 +28,4 @@
             @endif
         @endauth
     @endif
-</nav>
-<nav>
-    <a href= "{{ url('/create') }}">
-        <bottun  type ="button" class=btn> 投稿 </bottun>
-    </a>
 </nav>

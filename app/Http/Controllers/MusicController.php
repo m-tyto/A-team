@@ -61,7 +61,21 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $this->validate($request,[
+            'title' => 'required',
+            'artist' => 'required|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
+            'category_id' => 'required',
+            'text' => 'nullable',
+            'link' => 'nullable'
+        ],[
+            'title.required' => '曲名を入力してください',
+            'artist.required' => 'アーティスト名を入力してください',
+            'artist.regex' => 'アーティスト名は全角カタカナで入力してください',
+            'category_id.required' => 'カテゴリを選択してください'
+        ]);
+
+        Music::create($request->all());
+        return redirect('/');
     }
 
     /**
