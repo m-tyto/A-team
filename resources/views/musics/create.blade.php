@@ -23,7 +23,7 @@
     <dd><input type="text" name="artist" list="artist" autocomplete="off" placeholder="カタカナで入力してください"></dd>
       <datalist id="artist">
       @foreach($artists as $artist)
-        <option value="{{ $artist->artist}}">
+        <option value="{{ $artist->artist }}">
       @endforeach　
       </datalist>
     <dt><p>投稿理由(任意)</p></dt>
