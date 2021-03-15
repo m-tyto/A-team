@@ -20,7 +20,7 @@
     <dt><p>曲名</p></dt>
     <dd><input type="text" name='title'></dd>
     <dt><p>アーティスト名</p></dt>
-    <dd><input type="text" name="artist" list="artist" autocomplete="off"></dd>
+    <dd><input type="text" name="artist" list="artist" autocomplete="off" placeholder="カタカナで入力してください"></dd>
       <datalist id="artist">
       @foreach($artists as $artist)
         <option value="{{ $artist->artist}}">
