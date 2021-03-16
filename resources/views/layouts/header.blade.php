@@ -5,7 +5,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
         @auth
-            <a href="{{ url('/musics') }}">マイページ</a>
+            <a href="{{ url('/') }}">マイページ</a>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
@@ -24,9 +24,5 @@
         @endauth
     @endif
 </nav>
-<nav>
-    <a href= >
-        <bottun  type ="button" class=btn> 投稿 </bottun>
-    </a>
-</nav>
+
 

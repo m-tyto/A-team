@@ -36,10 +36,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
 
     public function likes(){
         return $this->hasmany("App\Models\Like");
@@ -47,9 +43,5 @@ class User extends Authenticatable
 
     public function musics(){
         return $this->hasmany("App\Models\Music");
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
     }
 }

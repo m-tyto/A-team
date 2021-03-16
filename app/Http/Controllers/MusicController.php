@@ -52,14 +52,33 @@ class MusicController extends Controller
     {
         //キーワードを受け取る
         $Keyword = $request -> input('keyword');
-        $Category = $request -> input('category');
+        $Category_ID = $request -> input('category');
         #クエリ生成
         $query = Music::query();
         $query1= Category::query();
+        //曲、カテゴリ両方検索されたら
+        if (!empty($Category_ID) && !empty($Keyword) ){
+            $musics= $query->where('title','like','%'.$Keyword.'%' ) -> get();
+            $musics= $query->where ('category_id', $Category_ID) -> get();
+            $Category = Category::find($Category_ID)-> name;
+            if (empty($musics)){
+                $message = '曲がありません';
+                return view('musics.show')->with([
+                    'message' => $message,
+                ]);
+            }else{
+                $message = '存在しました';
+                return view('musics.show')->with([
+                    'message' => $message,
+                    'musics' => $musics,
+                    'Category' => $Category,
+                    'Keyword' => $Keyword,
+                ]);
+            }
+        }
         // 曲が入力されたら
-        if(!empty($Keyword))
+        elseif(!empty($Keyword))
         {
-            $Music = $Keyword ;
             $message = "検索できました";
             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
             // dd($musics);
@@ -70,15 +89,16 @@ class MusicController extends Controller
             return view('musics.show')->with([
                 'message' => $message,
                 'musics' => $musics,
-                'Music' => $Music,
+                'Keyword' => $Keyword,
             ]);
         // もしカテゴリが選択されたら
-        }elseif (!empty($Category)){
-            $categories = $query1->where('name',$Category)-> get();
-            foreach($categories as $category){
-            $id=$category-> id;
-            $musics= $query->where('category_id',$id)-> get();
-            }
+        }elseif (!empty($Category_ID)){
+            $Category = Category::find($Category_ID)-> name;
+            $musics= $query->where('category_id',$Category_ID)-> get();
+            // foreach($categories as $category){
+            // $id=$category-> id;
+            // $musics= $query->where('category_id',$id)-> get();
+            // }
             if (empty($musics)){
                 $message = '曲がありません';
                 return view('musics.show')->with([
@@ -91,11 +111,12 @@ class MusicController extends Controller
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
-                    'id' => $id,
+                    'Category_ID' => $Category_ID,
+
+                    // 'id' => $id,
                 ]);
             }
-        }
-        else {
+        }else {
             $message = "検索結果ありません";
         }
     }
