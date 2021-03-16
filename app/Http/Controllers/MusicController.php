@@ -11,6 +11,7 @@ use App\User;
 use Validator;
 
 
+
 class MusicController extends Controller
 {
     /**
@@ -61,7 +62,29 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $title = $request->input('title');
+        $artist = $request->input('artist');
+        $check = Music::where('artist',$artist)->where('title',$title)->exists();
+        $this->validate($request,[
+            'title' => ['required',
+                        function($attribute, $value, $fail)use($check){
+                            if($check){
+                                return $fail('既に登録されている曲です');
+                            }
+                        }],
+            'artist' => 'required|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
+            'category_id' => 'required',
+            'text' => 'nullable',
+            'link' => 'nullable'
+        ],[
+            'title.required' => '曲名を入力してください',
+            'artist.required' => 'アーティスト名を入力してください',
+            'artist.regex' => 'アーティスト名は全角カタカナで入力してください',
+            'category_id.required' => 'カテゴリを選択してください'
+        ]);
+
+        Music::create($request->all());
+        return redirect('/');
     }
 
     /**
