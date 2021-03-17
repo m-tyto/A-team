@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Music;
-use App\Models\Like;
 use App\Models\Category;
+use App\Models\Like;
 use App\User;
+use Validator;
+
 
 
 class MusicController extends Controller
@@ -18,7 +21,15 @@ class MusicController extends Controller
      */
     public function index()
     {
-        return view('musics.index');
+        $query = Music::query();
+        $query1= Like::query();
+        $query2=Category::query();
+        $md = Music::get();
+        $categories = Category::get();
+        return view('musics.index')->with([
+            'categories' => $categories,
+            'md' => $md,]);
+        
     }
 
     /**
@@ -29,6 +40,18 @@ class MusicController extends Controller
     public function create()
     {
         
+        $categories = Category::All();
+        $artists = Music::select('artist')->distinct()->get();
+        $user_id = Auth::id();
+        if(!$user_id){
+            return view("auth.login");
+        }
+
+        return view("musics.create")->with([
+            'categories' => $categories,
+            'artists' => $artists,
+            'user_id' => $user_id
+            ]);;
     }
 
     /**
@@ -39,7 +62,29 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $title = $request->input('title');
+        $artist = $request->input('artist');
+        $check = Music::where('artist',$artist)->where('title',$title)->exists();
+        $this->validate($request,[
+            'title' => ['required',
+                        function($attribute, $value, $fail)use($check){
+                            if($check){
+                                return $fail('既に登録されている曲です');
+                            }
+                        }],
+            'artist' => 'required|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u',
+            'category_id' => 'required',
+            'text' => 'nullable',
+            'link' => 'nullable'
+        ],[
+            'title.required' => '曲名を入力してください',
+            'artist.required' => 'アーティスト名を入力してください',
+            'artist.regex' => 'アーティスト名は全角カタカナで入力してください',
+            'category_id.required' => 'カテゴリを選択してください'
+        ]);
+
+        Music::create($request->all());
+        return redirect('/');
     }
 
     /**

@@ -11,6 +11,7 @@ class CreateMusicsTable extends Migration
      *
      * @return void
      */
+    protected $table = 'musics';
     public function up()
     {
         Schema::create('musics', function (Blueprint $table) {

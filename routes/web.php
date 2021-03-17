@@ -16,23 +16,12 @@ use App\User;
 */
 
 
-Route::get('/', function () {
-    $query = Music::query();
-    $query1= Like::query();
-    $query2=Category::query();
-    $md = Music::get();
-    $categories = Category::get();
-    return view('musics.index')->with([
-        'categories' => $categories,
-        'md' => $md,
-    ]);
-}) -> name('index');
-Route::resource('musics','MusicController')->only(['index','show','create']);
+
+Route::resource('/','MusicController')->only(['index','show','create','store']);
 Route::resource('categories','CategoryController')->only(['index','show']);
 Route::resource('users','UserController')->only(['index','create','show','store']);
 Route::post('countlikes','MusicController@countlike')-> name('countlike');
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');
 
 
 
