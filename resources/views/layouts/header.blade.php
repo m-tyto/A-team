@@ -5,7 +5,7 @@
     @if (Route::has('login'))
         <div class="top-right links">
         @auth
-            <a href="{{ url('/') }}">マイページ</a>
+        <a href="{{ route('users.show', Auth::id()) }}">マイページ</a>
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
