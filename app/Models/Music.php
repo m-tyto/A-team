@@ -20,6 +20,5 @@ class Music extends Model
 
     public function likes(){
         return $this->hasmany("App\Models\Like");
-
     }
 }
