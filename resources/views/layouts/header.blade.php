@@ -30,6 +30,5 @@
         @endauth
     @endif
 </nav>
-
 </nav>
 

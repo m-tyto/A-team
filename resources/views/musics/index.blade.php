@@ -11,9 +11,7 @@
                     <select type="text" name="category">
                         <option value = >　 </option>
                     @foreach ($categories as $category)
-                        {{ $i = 1}}
-                        <option value = {{$i}}  >{{$category -> name }} </option>
-                        {{ $i ++ }}
+                        <option value = {{$category-> id }}  >{{$category -> name }} </option>
                     @endforeach 
                     </select>
                     <input type="submit" name="submit" value = "検索">
@@ -43,7 +41,7 @@
                                     @csrf
                                     <input type=hidden name = "music" value = "{{ $music }}" >
                                     <input type=hidden name = "id" value = "{{ $music -> id }}" >
-                                    <input type=hidden name = "likescount" value = "{{  $likescount}}" >
+                                    <input type=hidden name = "likescount" value = "{{$likescount}}" >
                                     <input type=submit type="submit" value= いいね >
                                 </form>
                             </div>
