@@ -62,6 +62,7 @@ class MusicController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $title = $request->input('title');
         $artist = $request->input('artist');
         $check = Music::where('artist',$artist)->where('title',$title)->exists();
@@ -95,6 +96,7 @@ class MusicController extends Controller
      */
     public function show(Request $request)
     {
+
         //キーワードを受け取る
         $Keyword = $request -> input('keyword');
         $Category_ID = $request -> input('category');
@@ -106,7 +108,7 @@ class MusicController extends Controller
             $musics= $query->where('title','like','%'.$Keyword.'%' ) -> get();
             $musics= $query->where ('category_id', $Category_ID) -> get();
             $Category = Category::find($Category_ID)-> name;
-            if (empty($musics)){
+            if(!file_exists($musics)){
                 $message = '曲がありません';
                 return view('musics.show')->with([
                     'message' => $message,
@@ -124,8 +126,12 @@ class MusicController extends Controller
         // 曲が入力されたら
         elseif(!empty($Keyword))
         {
-            $message = "検索できました";
             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
+            if(!file_exists($musics)){
+            $message = "曲はありません";
+            }else{
+                $message = "検索できました";
+            }
             // dd($musics);
             // foreach($musics as $music){
             // $categories=$music-> category ->name;

@@ -17,7 +17,9 @@ use App\User;
 
 
 
-Route::resource('/','MusicController')->only(['index','show','create','store']);
+// Route::get('/', 'MusicController@index');
+// Route::resource('musics','MusicController')->only(['index','create','store','show']);
+Route::resource('/','MusicController')->only(['index','create','store','show']);
 Route::resource('categories','CategoryController')->only(['index','show']);
 Route::resource('users','UserController')->only(['index','create','show','store']);
 Route::post('countlikes','MusicController@countlike')-> name('countlike');
