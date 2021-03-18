@@ -47,19 +47,37 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Responsent
      */
     public function show($id)
     {
-        $music = new Music;
-        $md = Music::get();
+        
         $category = Category::find($id) ;
+        $musics = $category->musics;
+        $music_counts = array();
+        foreach($musics as $music){
+            $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->orderBy('music_count','desc')->get();
+        }
+
+        $musics = array();
+        foreach($music_counts as $music_count){
+            foreach($music_count as $music){
+                $musics[] = Music::where('id',$music->music_id)->get();
+            }
+            
+        }
+        
         return view('categories.show')->with([
             'category' => $category,
-            'md' => $md,
-            'music' => $music
+            'music_counts' => $music_counts,
+            'musics' => $musics
         ]);
     }
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the form for editing the specified resource.
