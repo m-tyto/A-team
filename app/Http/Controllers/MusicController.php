@@ -29,7 +29,6 @@ class MusicController extends Controller
         return view('musics.index')->with([
             'categories' => $categories,
             'md' => $md,]);
-        
     }
 
     /**
@@ -39,7 +38,6 @@ class MusicController extends Controller
      */
     public function create()
     {
-        
         $categories = Category::All();
         $artists = Music::select('artist')->distinct()->get();
         $user_id = Auth::id();
@@ -53,7 +51,7 @@ class MusicController extends Controller
             'user_id' => $user_id
             ]);;
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -61,8 +59,7 @@ class MusicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        dd($request);
+    {   
         $title = $request->input('title');
         $artist = $request->input('artist');
         $check = Music::where('artist',$artist)->where('title',$title)->exists();
@@ -170,39 +167,6 @@ class MusicController extends Controller
         }else {
             $message = "検索結果ありません";
         }
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function countlike(Request $request)

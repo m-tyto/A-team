@@ -7,7 +7,7 @@
   @endforeach
 </ul>
 
-<form action="{{ route('store') }}" method="POST">
+<form action="{{ url('store') }}" method="POST">
 @csrf
   <input type="hidden" name="user_id" value="{{ $user_id }}">
   <dl>
@@ -32,7 +32,6 @@
     <dd><input type="text" name="link"></dd>
     <input type="submit" value="投稿する">
   </dl>
-
 </form>
 @endsection
 
