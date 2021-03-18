@@ -29,7 +29,6 @@ class MusicController extends Controller
         return view('musics.index')->with([
             'categories' => $categories,
             'md' => $md,]);
-        
     }
 
     /**
@@ -39,7 +38,6 @@ class MusicController extends Controller
      */
     public function create()
     {
-        
         $categories = Category::All();
         $artists = Music::select('artist')->distinct()->get();
         $user_id = Auth::id();
@@ -53,7 +51,6 @@ class MusicController extends Controller
             'user_id' => $user_id
             ]);;
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -61,7 +58,7 @@ class MusicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $title = $request->input('title');
         $artist = $request->input('artist');
         $check = Music::where('artist',$artist)->where('title',$title)->exists();
@@ -212,5 +209,4 @@ class MusicController extends Controller
         ]);
         return back() ;
     }
-
 }

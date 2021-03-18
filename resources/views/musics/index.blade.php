@@ -4,9 +4,9 @@
         <div class='search-box'>
             <div class="category-box"></div>
             <div class="search">
-                <form method="GET" action="musics/show" accept-charset="UTF-8">
+                <form method="GET" action="/show" accept-charset="UTF-8">
                     <label>曲名から探す</label>
-                    <input type="search" name="keyword" placeholder="曲名を入力してください!">
+                    <input type="search" name="keyword"  placeholder="曲名を入力してください!">
                     <label>カテゴリから探す</label>
                     <select type="text" name="category">
                         <option value = >　 </option>
