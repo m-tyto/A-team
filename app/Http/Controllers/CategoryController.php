@@ -7,6 +7,7 @@ use App\Models\Music;
 use App\Models\Like;
 use App\Models\Category;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -17,6 +18,7 @@ class CategoryController extends Controller
      */
     public function index($name)
     {
+        
 
     }
 
@@ -45,19 +47,37 @@ class CategoryController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Responsent
      */
     public function show($id)
     {
-        //カテゴリの中にある曲を表示させる
-        $md = Music::get();
-        $category = Category::get();
+        
         $category = Category::find($id) ;
-        return view('categories.index')->with([
+        $musics = $category->musics;
+        $music_counts = array();
+        foreach($musics as $music){
+            $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->orderBy('music_count','desc')->get();
+        }
+
+        $musics = array();
+        foreach($music_counts as $music_count){
+            foreach($music_count as $music){
+                $musics[] = Music::where('id',$music->music_id)->get();
+            }
+            
+        }
+        
+        return view('categories.show')->with([
             'category' => $category,
-            'md' => $md,
+            'music_counts' => $music_counts,
+            'musics' => $musics
         ]);
     }
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -93,3 +113,4 @@ class CategoryController extends Controller
         //
     }
 }
+

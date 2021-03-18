@@ -22,6 +22,8 @@ Route::resource('categories','CategoryController')->only(['index','show']);
 Route::resource('users','UserController')->only(['index','create','show','store']);
 Route::post('countlikes','MusicController@countlike')-> name('countlike');
 Auth::routes();
+Route::get('musics/like/{id}', 'MusicController@like')->name('music.like');
+Route::get('musics/unlike/{id}', 'MusicController@unlike')->name('music.unlike');
 
 
 

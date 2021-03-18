@@ -199,18 +199,39 @@ class MusicController extends Controller
         //
     }
 
-    public function countlike(Request $request)
+    public function like($id)
+  {
+    Like::create([
+      'music_id' => $id,
+      'user_id' => Auth::id(),
+    ]);
+
+    session()->flash('success', 'You Liked the Music.');
+
+    return redirect()->back();
+  }
+
+    public function unlike($id)
     {
-        $music = $request -> music;
-        $likescount = $request -> likescount;
-        $id = $request -> id;
-        $query = Music::query();
-        $query
-        ->where('id', $id)
-        ->update([
-            'likescount' => $likescount+1
-        ]);
-        return back() ;
-    }
+        $like = Like::where('music_id', $id)->where('user_id', Auth::id())->first();
+        $like->delete();
+
+        session()->flash('success', 'You Unliked the Music.');
+
+        return redirect()->back();
+  }
+    // public function countlike(Request $request)
+    // {
+    //     $music = $request -> music;
+    //     $likescount = $request -> likescount;
+    //     $id = $request -> id;
+    //     $query = Music::query();
+    //     $query
+    //     ->where('id', $id)
+    //     ->update([
+    //         'likescount' => $likescount+1
+    //     ]);
+    //     return back() ;
+    // }
 
 }
