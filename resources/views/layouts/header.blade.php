@@ -5,7 +5,8 @@
     @if (Route::has('login'))
         <div class="top-right links">
         @auth
-            <a href="{{ url('/musics') }}">マイページ</a>
+        <a href="{{ route('users.show', Auth::id()) }}">マイページ</a>
+
             <a href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
@@ -14,6 +15,11 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
+            <nav>
+                <a href= "{{ url('/create') }}">
+                    <bottun  type ="button"> 投稿 </bottun>
+                </a>
+            </nav>
         </div>
         @else
             <a href="{{ route('login') }}">ログイン</a>
@@ -24,8 +30,5 @@
         @endauth
     @endif
 </nav>
-<nav>
-    <a href= "{{ url('/create') }}">
-        <bottun  type ="button" class=btn> 投稿 </bottun>
-    </a>
 </nav>
+

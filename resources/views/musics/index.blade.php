@@ -9,16 +9,10 @@
                     <input type="search" name="keyword" placeholder="曲名を入力してください!">
                     <label>カテゴリから探す</label>
                     <select type="text" name="category">
-                        <option value="" selected>指定無し</option>
-                        <option value="楽しい">楽しい</option>
-                        <option value="切ない">切ない</option>
-                        <option value="盛り上がる">盛り上がる</option>
-                        <option value="悲しい">悲しい</option>
-                        <option value="開放的">開放的</option>
-                        <option value="ドライブ">ドライブ</option>
-                        <option value="くつろぎたい">くつろぎたい</option>
-                        <option value="明日もがんばりたい">明日もがんばりたい</option>
-                        <option value="雨の日">雨の日</option>
+                        <option value = >　 </option>
+                    @foreach ($categories as $category)
+                        <option value = {{$category-> id }}  >{{$category -> name }} </option>
+                    @endforeach 
                     </select>
                     <input type="submit" name="submit" value = "検索">
                 </form>
@@ -47,7 +41,7 @@
                                     @csrf
                                     <input type=hidden name = "music" value = "{{ $music }}" >
                                     <input type=hidden name = "id" value = "{{ $music -> id }}" >
-                                    <input type=hidden name = "likescount" value = "{{  $likescount}}" >
+                                    <input type=hidden name = "likescount" value = "{{$likescount}}" >
                                     <input type=submit type="submit" value= いいね >
                                 </form>
                             </div>

@@ -9,7 +9,7 @@ class Music extends Model
 {
     protected $table = 'musics';
 
-    protected $fillable = ["id", "artist", "title", "text", "link"];
+    protected $fillable = ["id", "artist", "title", "text", "link" , "category_id", "user_id"];
 
     public function category(){
         return $this->belongsTo("App\Models\Category");
