@@ -93,6 +93,25 @@ class MusicController extends Controller
      */
     public function show(Request $request)
     {
+       
+    }
+
+    public function countlike(Request $request)
+    {
+        $music = $request -> music;
+        $likescount = $request -> likescount;
+        $id = $request -> id;
+        $query = Music::query();
+        $query
+        ->where('id', $id)
+        ->update([
+            'likescount' => $likescount+1
+        ]);
+        return back() ;
+    }
+
+    public function search(Request $request)
+    {
         //キーワードを受け取る
         $Keyword = $request -> input('keyword');
         $Category_ID = $request -> input('category');
@@ -106,12 +125,12 @@ class MusicController extends Controller
             $Category = Category::find($Category_ID)-> name;
             if (empty($musics)){
                 $message = '曲がありません';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                 ]);
             }else{
                 $message = '存在しました';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
@@ -129,7 +148,7 @@ class MusicController extends Controller
             // $categories=$music-> category ->name;
             // }
             // dd($musics1);
-            return view('musics.show')->with([
+            return view('musics.search')->with([
                 'message' => $message,
                 'musics' => $musics,
                 'Keyword' => $Keyword,
@@ -144,13 +163,13 @@ class MusicController extends Controller
             // }
             if (empty($musics)){
                 $message = '曲がありません';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                 ]);
             }else{
                 $count = $musics -> count();
                 $message =  '曲が' . $count . '曲あります';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
@@ -163,19 +182,4 @@ class MusicController extends Controller
             $message = "検索結果ありません";
         }
     }
-
-    public function countlike(Request $request)
-    {
-        $music = $request -> music;
-        $likescount = $request -> likescount;
-        $id = $request -> id;
-        $query = Music::query();
-        $query
-        ->where('id', $id)
-        ->update([
-            'likescount' => $likescount+1
-        ]);
-        return back() ;
-    }
-
 }
