@@ -32,7 +32,6 @@
     <dd><input type="text" name="link"></dd>
     <input type="submit" value="投稿する">
   </dl>
-
 </form>
 @endsection
 
