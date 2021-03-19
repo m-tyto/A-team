@@ -82,6 +82,7 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
+        session()->flash('flash_message', '投稿が完了しました');
         return redirect('/');
     }
 

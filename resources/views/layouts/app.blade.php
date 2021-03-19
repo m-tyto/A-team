@@ -8,6 +8,11 @@
     <header>
         @include('layouts.header')
     </header>
+    @if(session('flash_message'))
+        <div>
+            {{ session('flash_message') }}
+        </div>
+    @endif
     <main class="py-4">
         @yield('content')
     </main>
