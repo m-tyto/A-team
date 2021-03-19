@@ -51,26 +51,38 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        
         $category = Category::find($id) ;
         $musics = $category->musics;
         $music_counts = array();
+        dd($musics);
+        // $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->get();
         foreach($musics as $music){
-            $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->orderBy('music_count','desc')->get();
+            $judge = array_filter($music);
+            dd($judge);
+            if(empty($judge)){
+                $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->get();
+            }
+            // foreach($music_counts as $music_count){
+            //     $music_counts[] = $music_count;
+            //     if (exist_file($music_count)){
+            //         foreach($music_count as $md){
+            //             $music_counts[] = $md;
+            //         }
+            //     }
+            // }
         }
-
+        dd($music_counts);
         $musics = array();
         foreach($music_counts as $music_count){
             foreach($music_count as $music){
+                // if()
                 $musics[] = Music::where('id',$music->music_id)->get();
             }
-            
         }
-        
         return view('categories.show')->with([
             'category' => $category,
             'music_counts' => $music_counts,
-            'musics' => $musics
+            'musics' => $musics,
         ]);
     }
 

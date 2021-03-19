@@ -4,16 +4,23 @@
 
 @section('content')
 <h1>{{$category_id = $category -> id }} {{$category->name}}ランキング一覧</h1>
-@foreach ($musics as $music)
- @foreach ($music as $song) 
+@foreach ($music_counts-> sortByDesc('music_count') as $music)
+@foreach ($music as $song) 
+{{$song}}
+@endforeach
+@endforeach
+
+@foreach ($musics as $music ) 
+ @foreach ($music as $song ) 
     <div class="number">
-    <?php var_dump($song);?>
         <div class="title">{{ $song -> title }}</div>
         <div class="likes"> 
             @if($song->is_liked_by_auth_user())
-            <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm">いいね<span class="badge">{{ $song->likes->count() }}</span></a>
+            <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm">いいね</a>
+            <i class="fas fa-heart"></i>
             @else
-            <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm">いいね<span class="badge">{{ $song->likes->count() }}</span></a>
+            <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm">いいね</a>
+            <i class="far fa-heart"></i>
             @endif
             {{ $song->likes->count() }}
         </div>

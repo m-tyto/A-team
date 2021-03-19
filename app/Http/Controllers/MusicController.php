@@ -82,8 +82,32 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
-        return redirect('/');
+        $md= Music::get();
+        // dd(count($md));
+        $music_id = count($md);
+        $user_id = Auth::id();
+
+        return redirect()->route('groundlike', ['title' => $title]);
+        // return redirect('/groundlike') -> with(
+        //     'title' , $title
+        // );
     }
+
+    public function groundlike(Request $request)
+  {
+    $title =$request-> title;
+    $query = Music::query();
+    $musics= $query->where('title','like','%'.$title.'%' ) -> get();
+    $musics= $query->where ('user_id', Auth::id()) -> get();
+    foreach( $musics as $music){
+        $music_id = $music -> id;
+    }
+        Like::create([
+            'music_id' => $music_id,
+            'user_id' =>  Auth::id(),
+        ]);
+    return redirect('/');
+  }
 
     /**
      * Display the specified resource.
