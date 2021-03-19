@@ -2,7 +2,6 @@
 @section('title', 'Index')
 @section('content')
 <div class="music">
-<h2>{{ $message }}</h2>
 <!-- //両方検索れた場合 -->
 @if(!empty($Category)&&!empty($Keyword) )
     <div>
