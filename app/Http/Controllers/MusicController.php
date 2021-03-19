@@ -91,9 +91,8 @@ class MusicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function search(Request $request)
     {
-
         //キーワードを受け取る
         $Keyword = $request -> input('keyword');
         $Category_ID = $request -> input('category');
@@ -105,14 +104,14 @@ class MusicController extends Controller
             $musics= $query->where('title','like','%'.$Keyword.'%' ) -> get();
             $musics= $query->where ('category_id', $Category_ID) -> get();
             $Category = Category::find($Category_ID)-> name;
-            if(!file_exists($musics)){
-                $message = '曲がありません';
-                return view('musics.show')->with([
+            if($i= count($musics)==0){
+                $message = '存在しません';
+                return view('musics.search')->with([
                     'message' => $message,
                 ]);
             }else{
                 $message = '存在しました';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
@@ -124,17 +123,13 @@ class MusicController extends Controller
         elseif(!empty($Keyword))
         {
             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
-            if(!file_exists($musics)){
+            $i=count($musics) ;
+            if($i < 1 ){
             $message = "曲はありません";
             }else{
-                $message = "検索できました";
+                $message = "カテゴリが".$i. "存在しました";
             }
-            // dd($musics);
-            // foreach($musics as $music){
-            // $categories=$music-> category ->name;
-            // }
-            // dd($musics1);
-            return view('musics.show')->with([
+            return view('musics.search')->with([
                 'message' => $message,
                 'musics' => $musics,
                 'Keyword' => $Keyword,
@@ -149,13 +144,13 @@ class MusicController extends Controller
             // }
             if (empty($musics)){
                 $message = '曲がありません';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                 ]);
             }else{
                 $count = $musics -> count();
                 $message =  '曲が' . $count . '曲あります';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
@@ -182,5 +177,7 @@ class MusicController extends Controller
         ]);
         return back() ;
     }
+
+
 
 }

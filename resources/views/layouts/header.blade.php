@@ -16,7 +16,7 @@
                 @csrf
             </form>
             <nav>
-                <a href= "{{ url('create') }}">
+                <a href= "{{ route('create') }}">
                     <bottun  type ="button"> 投稿 </bottun>
                 </a>
             </nav>
