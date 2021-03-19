@@ -95,91 +95,80 @@ class MusicController extends Controller
     {
        
     }
-
-    public function countlike(Request $request)
-    {
-        $music = $request -> music;
-        $likescount = $request -> likescount;
-        $id = $request -> id;
-        $query = Music::query();
-        $query
-        ->where('id', $id)
-        ->update([
-            'likescount' => $likescount+1
-        ]);
-        return back() ;
-    }
-
     public function search(Request $request)
     {
-        //キーワードを受け取る
-        $Keyword = $request -> input('keyword');
-        $Category_ID = $request -> input('category');
-        #クエリ生成
-        $query = Music::query();
-        $query1= Category::query();
-        //曲、カテゴリ両方検索されたら
-        if (!empty($Category_ID) && !empty($Keyword) ){
-            $musics= $query->where('title','like','%'.$Keyword.'%' ) -> get();
-            $musics= $query->where ('category_id', $Category_ID) -> get();
-            $Category = Category::find($Category_ID)-> name;
-            if (empty($musics)){
-                $message = '曲がありません';
-                return view('musics.search')->with([
-                    'message' => $message,
-                ]);
-            }else{
-                $message = '存在しました';
-                return view('musics.search')->with([
-                    'message' => $message,
-                    'musics' => $musics,
-                    'Category' => $Category,
-                    'Keyword' => $Keyword,
-                ]);
-            }
-        }
-        // 曲が入力されたら
-        elseif(!empty($Keyword))
-        {
-            $message = "検索できました";
-            $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
-            // dd($musics);
-            // foreach($musics as $music){
-            // $categories=$music-> category ->name;
-            // }
-            // dd($musics1);
-            return view('musics.search')->with([
-                'message' => $message,
-                'musics' => $musics,
-                'Keyword' => $Keyword,
-            ]);
-        // もしカテゴリが選択されたら
-        }elseif (!empty($Category_ID)){
-            $Category = Category::find($Category_ID)-> name;
-            $musics= $query->where('category_id',$Category_ID)-> get();
-            // foreach($categories as $category){
-            // $id=$category-> id;
-            // $musics= $query->where('category_id',$id)-> get();
-            // }
-            if (empty($musics)){
-                $message = '曲がありません';
-                return view('musics.search')->with([
-                    'message' => $message,
-                ]);
-            }else{
-                $count = $musics -> count();
-                $message =  '曲が' . $count . '曲あります';
-                return view('musics.search')->with([
-                    'message' => $message,
-                    'musics' => $musics,
-                    'Category' => $Category,
-                    'Category_ID' => $Category_ID,
-
-                    // 'id' => $id,
-                ]);
-            }
-        }else {
-            $message = "検索結果ありません";
-        }
+         //キーワードを受け取る
+         $Keyword = $request -> input('keyword');
+         $Category_ID = $request -> input('category');
+         #クエリ生成
+         $query = Music::query();
+         $query1= Category::query();
+         //曲、カテゴリ両方検索されたら
+         if (!empty($Category_ID) && !empty($Keyword) ){
+             $musics= $query->where('title','like','%'.$Keyword.'%' ) -> get();
+             $musics= $query->where ('category_id', $Category_ID) -> get();
+             $Category = Category::find($Category_ID)-> name;
+             if(!file_exists($musics)){
+                 $message = '曲がありません';
+                 return view('musics.search')->with([
+                     'message' => $message,
+                 ]);
+             }else{
+                 $message = '存在しました';
+                 return view('musics.search')->with([
+                     'message' => $message,
+                     'musics' => $musics,
+                     'Category' => $Category,
+                     'Keyword' => $Keyword,
+                 ]);
+             }
+         }
+         // 曲が入力されたら
+         elseif(!empty($Keyword))
+         {
+             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
+             if($i = count($musics) >=1) {
+             $message = "カテゴリが".$i. "存在しました" ;
+             }else{
+             $message = "カテゴリは存在しません";
+             }
+             // dd($musics);
+             // foreach($musics as $music){
+             // $categories=$music-> category ->name;
+             // }
+             // dd($musics1);
+             return view('musics.search')->with([
+                 'message' => $message,
+                 'musics' => $musics,
+                 'Keyword' => $Keyword,
+             ]);
+         // もしカテゴリが選択されたら
+         }elseif (!empty($Category_ID)){
+             $Category = Category::find($Category_ID)-> name;
+             $musics= $query->where('category_id',$Category_ID)-> get();
+             // foreach($categories as $category){
+             // $id=$category-> id;
+             // $musics= $query->where('category_id',$id)-> get();
+             // }
+             if (empty($musics)){
+                 $message = '曲がありません';
+                 return view('musics.search')->with([
+                     'message' => $message,
+                 ]);
+             }else{
+                 $count = $musics -> count();
+                 $message =  '曲が' . $count . '曲あります';
+                 return view('musics.search')->with([
+                     'message' => $message,
+                     'musics' => $musics,
+                     'Category' => $Category,
+                     'Category_ID' => $Category_ID,
+ 
+                     // 'id' => $id,
+                 ]);
+             }
+         }else {
+             $message = "検索結果ありません";
+         }
     }
 }

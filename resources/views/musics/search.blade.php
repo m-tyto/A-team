@@ -2,24 +2,27 @@
 @section('title', 'Index')
 @section('content')
 <div class="music">
-<h2>{{ $message }}</h2>
+<h2>検索結果</h2>
 @if(!empty($Category)&&!empty($Keyword) )
     <div>
-    <h2>カテゴリー{{ $Category}}  曲名ー{{ $Keyword  }}</h2>
+        <h2>カテゴリー{{ $Category}}  曲名ー{{ $Keyword  }}</h2>
+        <h2>{{ $message }}</h2>
     </div>
 </div>
 
 @elseif(!empty($Keyword)&&empty($Category))
     <div>
-        <h2>{{ $Keyword }}</h2>
+        <h2>キーワード：{{ $Keyword }}</h2>
+        <h2>{{ $message }}</h2>
         @foreach($musics as $music)
-        <div> <h2>{{$category=$music-> category ->name}}</h2></div>
+        <div> <h2>カテゴリ：{{$category=$music-> category ->name}}</h2></div>
         @endforeach 
     </div>
 
 @elseif(!empty($Category)&&empty($Keyword))
     <div>
-    <h2>{{ $Category  }}</h2>
+    <h2>{{ $message }}</h2>
+    <h2>カテゴリ：{{ $Category  }}</h2>
     <a href="{{ route ('categories.show', $Category_ID )}}">{{$Category}} </a>
     @foreach ($musics as $music)
     <h2>{{ $music -> title}}</h2>
