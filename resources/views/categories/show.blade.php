@@ -7,7 +7,6 @@
 @foreach ($musics as $music)
  @foreach ($music as $song) 
     <div class="number">
-    <?php var_dump($song);?>
         <div class="title">{{ $song -> title }}</div>
         <div class="likes"> 
             @if($song->is_liked_by_auth_user())
