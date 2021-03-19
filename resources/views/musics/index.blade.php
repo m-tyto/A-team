@@ -20,45 +20,43 @@
             </div>
         </div> 
         <div class = "ranking-box">
-            @foreach ($categories as $category)
-            <div class="ranking">
-                <div class="category">
-                        {{$id = $category -> id }}
-                        <a href="{{ route ('categories.show', $id )}}">{{$category->name}} </a>
-                </div>
-                @foreach ($md->where('category_id', $id) -> sortByDesc('likescount') as $music)
-                    @php
-                    $i = 0
-                    @endphp
-                    @if($i >= 3)
-                    @break
-                    @else
-                    <div class="number">
-                        <div class="title">{{ $music -> title }}</div>
-                        <div class="likes"> 
-                            <div class="count">{{ $likescount = $music -> likescount }}</div>
-                            <div class="heart">
-                                <form method="post" action="{{route('countlike' )}}" >
-                                    @csrf
-                                    <input type=hidden name = "music" value = "{{ $music }}" >
-                                    <input type=hidden name = "id" value = "{{ $music -> id }}" >
-                                    <input type=hidden name = "likescount" value = "{{$likescount}}" >
-                                    <input type=submit type="submit" value= いいね >
-                                </form>
+            @foreach($musics as $music)
+                @foreach ($music as $md)
+                <div class="ranking">
+                    <div class="category">
+                    {{ $id =$md->category_id }}
+                        <a href="{{ route ('categories.show', $id )}}">{{ $id}} </a>
+                    </div><dd></dd>
+                        @php
+                        $i = 0
+                        @endphp
+                        @if($i >= 3)
+                        @break
+                        @else
+                        <div class="number">
+                            <div class="title">{{ $md -> title }}</div>
+                            <div class="likes"> 
+                                @if($md->is_liked_by_auth_user())
+                                <a href="{{ route('music.unlike', ['id' => $md->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-heart"></i></a>
+                                @else
+                                <a href="{{ route('music.like', ['id' => $md->id]) }}" class="btn btn-secondary btn-sm"><i class="far fa-heart"></i></a>
+                                @endif
+                                {{ $md->likes->count() }}
                             </div>
                         </div>
-                    </div>
-                    @php
-                    $i++
-                    @endphp
-                    @endif
-                @endforeach 
-            </div>
+                        @php
+                        $i++
+                        @endphp
+                        @endif
+                @endforeach
+                </div>
             @endforeach
         </div>
     </div>
 </div>
-   
+
 @endsection
+
+
 
 
