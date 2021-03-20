@@ -3,32 +3,20 @@
 @section('title', 'Index')
 
 @section('content')
-<h1>{{$category_id = $category -> id }} {{$category->name}}</h1>
-@foreach ($md->where('category_id', $category_id) -> sortByDesc('likescount') as $music)
-                    @php
-                    $i = 0
-                    @endphp
-                    @if($i >= 3)
-                    @break
-                    @else
-                    <div class="number">
-                        <div class="title">{{ $music -> title }}</div>
-                        <div class="likes"> 
-                            <div class="count">{{ $likescount = $music -> likescount }}</div>
-                            <div class="heart">
-                                <form method="post" action="{{route('countlike' )}}" >
-                                    @csrf
-                                    <input type=hidden name = "music" value = "{{ $music }}" >
-                                    <input type=hidden name = "id" value = "{{ $music -> id }}" >
-                                    <input type=hidden name = "likescount" value = "{{  $likescount}}" >
-                                    <input type=submit type="submit" value= いいね >
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    @php
-                    $i++
-                    @endphp
-                    @endif
-                @endforeach 
+<h1>{{$category_id = $category -> id }} {{$category->name}}ランキング一覧</h1>
+@foreach ($musics as $music)
+ @foreach ($music as $song) 
+    <div class="number">
+        <div class="title">{{ $song -> title }}</div>
+        <div class="likes"> 
+            @if($song->is_liked_by_auth_user())
+            <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm">いいね<span class="badge">{{ $song->likes->count() }}</span></a>
+            @else
+            <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm">いいね<span class="badge">{{ $song->likes->count() }}</span></a>
+            @endif
+            {{ $song->likes->count() }}
+        </div>
+    </div>
+    @endforeach
+  @endforeach
 @endsection

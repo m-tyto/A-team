@@ -39,6 +39,8 @@ trait RegistersUsers
             return $response;
         }
 
+        session()->flash('flash_message', 'ユーザー登録が完了しました');
+
         return $request->wantsJson()
                     ? new JsonResponse([], 201)
                     : redirect($this->redirectPath());

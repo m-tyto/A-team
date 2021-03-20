@@ -1,5 +1,5 @@
 <nav>
-    <h2 class="music-life"><a href="{{ url('/') }}">Music Life</a></h2>
+    <h2 class="music-life"><a href="{{ route('index') }}">Music Life</a></h2>
 </nav>
 <nav>
     @if (Route::has('login'))
@@ -16,7 +16,7 @@
                 @csrf
             </form>
             <nav>
-                <a href= "{{ url('create') }}">
+                <a href= "{{ route('create') }}">
                     <bottun  type ="button"> 投稿 </bottun>
                 </a>
             </nav>

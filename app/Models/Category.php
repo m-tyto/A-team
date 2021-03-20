@@ -12,5 +12,6 @@ class Category extends Model
     public function musics(){
         return $this->hasmany("App\Models\Music");
     }
-
 }
+
+
