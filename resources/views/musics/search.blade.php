@@ -15,6 +15,7 @@
         <h2>{{ $message }}</h2>
         @foreach($musics as $music)
         <div> <h2>カテゴリ：{{$category=$music-> category ->name}}</h2></div>
+        <div> <h2>アーティスト：{{$artist=$music-> artist }}</h2></div>
         @endforeach 
     </div>
 <!-- //カテゴリが検索れた場合 -->
@@ -29,7 +30,7 @@
         <h2>アーティスト：{{ $music -> artist}}</h2>
         @endforeach
     </div>
-<!-- //曲が検索れた場合 -->
+<!-- //アーティストが検索れた場合 -->
 @elseif(!empty($Artist)&&empty($Category))
     <div>
         <h2>キーワード：{{ $Artist }}</h2>
