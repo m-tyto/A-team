@@ -105,7 +105,7 @@ class MusicController extends Controller
         // dd(count($md));
         $music_id = count($md);
         $user_id = Auth::id();
-        $this -> graundlike($request);
+        $this ->groundlike($request);
         // return redirect()->route('groundlike', ['title' => $title]);
         // return redirect('/groundlike') -> with(
         //     'title' , $title
@@ -129,7 +129,6 @@ class MusicController extends Controller
             'music_id' => $music_id,
             'user_id' =>  Auth::id(),
         ]);
-    return redirect('/');
   }
 
     /**

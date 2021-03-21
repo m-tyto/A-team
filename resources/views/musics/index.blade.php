@@ -1,16 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <div class="music">
-<<<<<<< HEAD
         <div class = 'catchflaise'> <h1>あなたに合った音楽を</h1></div>
         <div class='search-box'> 
             <form class="search_container" method="GET" action="{{ route('search') }}" accept-charset="UTF-8">
-=======
-        <div class='search-box'>
-            <div class="category-box"></div>
-            <div class="search">
-                <form method="GET"  action="{{ route('search')}}" accept-charset="UTF-8">
->>>>>>> develop
                 @csrf
                 <div class ="inputs">
                     <input type="text" name="keyword" placeholder="曲名を入力してください!" size="25" >
@@ -39,7 +32,7 @@
                                                 <div class="title">{{ $song -> title }}</div>
                                                 <div class="likes"> 
                                                     <div class ="heart">
-
+                                                        @auth
                                                             @if($song->is_liked_by_auth_user() && $song -> user_id != $myid=  Auth::id())
                                                             <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-heart"></i></a>
                                                             @elseif($song -> user_id == $myid=Auth::id())
@@ -48,8 +41,9 @@
                                                             <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm"><i class="far fa-heart"></i></a>
                                                             @endif
                                                             {{ $song->likes->count() }}
-
-                                                            
+                                                        @else
+                                                            <a href="{{ route('login') }}" class="btn btn-secondary btn-sm"><i class="far fa-heart"></i></a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>

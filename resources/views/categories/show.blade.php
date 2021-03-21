@@ -11,13 +11,16 @@
         <div class="artist">ARTIST：{{ $song -> artist }}</div>
         <div class="likes">
             @auth
-                @if($song->is_liked_by_auth_user())
+                @if($song->is_liked_by_auth_user() && $song -> user_id != $myid=  Auth::id())
                 <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-heart"></i></a>
+                @elseif($song -> user_id == $myid=Auth::id())
+                <a onsubmit="return confirm_test()"  class="btn btn-success btn-sm"><i class=" fas fa-heart myheart"></i></a>
                 @else
                 <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
                 @endif
             @else 
-                <a href="{{ route('login']) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
+                 <a href="{{ route('login') }}" class="btn btn-secondary btn-sm"><i class="far fa-heart"></i></a>
+            @endif
             {{ $song->likes->count() }}いいね
         </div>
     </div>
