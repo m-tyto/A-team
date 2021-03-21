@@ -60,6 +60,7 @@ class CategoryController extends Controller
         }
         
         $count = count($music_counts)-1;
+       
         $this->music_count_sort($music_counts, 0, $count);
 
         $musics = array();
