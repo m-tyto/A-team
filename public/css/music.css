@@ -98,6 +98,21 @@ a:visited{
     background-image: url(‘/images/glass-97504_1920.jpg’);
     background-size: cover;
 }
+.rankings4{
+    /* position: absolute; */
+    background-image: url('/images/david-marcu-_iVG4MsY2N0-unsplash.jpg');
+    background-size: cover;
+}
+.rankings5{
+    /* position: absolute; */
+    background-image: url('/images/green-chameleon-s9CC2SKySJM-unsplash.jpg');
+    background-size: cover;
+}
+.rankings6{
+    /* position: absolute; */
+    background-image: url('/images/hector-bermudez-iIWDt0fXa84-unsplash.jpg');
+    background-size: cover;
+}
 .ranking{
     margin-left:30%;
     margin-right:30%;

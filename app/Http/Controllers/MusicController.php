@@ -100,6 +100,7 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
+
         $this->groundlike();
 
         session()->flash('flash_message', '投稿が完了しました');
@@ -115,7 +116,11 @@ class MusicController extends Controller
             'music_id' => $music->id,
             'user_id' =>  $music->user_id,
         ]);
+
+        }
+
     }
+
 
     /**
      * Display the specified resource.
