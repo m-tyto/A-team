@@ -1,6 +1,5 @@
 @extends ('layouts.app')
 @section ('content')
-
 <ul>
   @foreach($errors->all() as $error)
       <li>{{ $error }}</li>

@@ -10,8 +10,6 @@ use App\Models\Like;
 use App\User;
 use Validator;
 
-
-
 class MusicController extends Controller
 {
     /**
@@ -32,22 +30,24 @@ class MusicController extends Controller
             foreach($c_musics as $music){
                 $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->orderBy('music_count','desc')->get();
             }
-        }
-        $count = count($music_counts)-1;
-            $this->music_count_sort($music_counts, 0, $count);
 
+            $count = count($music_counts)-1;
+            $this->music_count_sort($music_counts, 0, $count);
+            $musics = array();
             foreach($music_counts as $music_count){
                 foreach($music_count as $music){
                     $musics[] = Music::where('id',$music->music_id)->get();
                 }
             }
-
+            $album[] = $musics;
+        }
+        // dd($album);
         return view('musics.index')->with([
             'categories' => $categories,
             'md' => $md,
             'category' => $category,
             'music_counts' => $music_counts,
-            'musics' => $musics,
+            'album' => $album,
             ]);
     }
     /**
@@ -139,6 +139,7 @@ class MusicController extends Controller
         //キーワードを受け取る
         $Keyword = $request -> input('keyword');
         $Category_ID = $request -> input('category');
+        $Artist = $request -> input('artist');
         #クエリ生成
         $query = Music::query();
         $query1= Category::query();
@@ -202,7 +203,23 @@ class MusicController extends Controller
                     // 'id' => $id,
                 ]);
             }
-        }else {
+        }
+        //もしアーティストが選択されたら
+        elseif (!empty($Artist)){
+            $musics= $query->where('artist','like','%'.$Artist.'%') -> get();
+            $i=count($musics) ;
+            if($i < 1 ){
+            $message = "曲はありません";
+            }else{
+                $message = "曲が".$i. "存在しました";
+            }
+            return view('musics.search')->with([
+                'message' => $message,
+                'musics' => $musics,
+                'Artist' => $Artist,
+            ]);
+        }
+        else {
             $message = "検索結果ありません";
         }
     }

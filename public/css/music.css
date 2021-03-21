@@ -1,3 +1,6 @@
+
+
+
 .body {
     font-family: Arial, Helvetica, sans-serif;
     min-width: 720px;
@@ -6,11 +9,18 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+a:visited{
+    color:black;
+    text-decoration:none;
+    text-decoration: none;
+    }
+
 /* --------------------------------------------------
   index page
 --------------------------------------------------- */
 .music{
-    background-color: aqua;
+    background-color: white;
     width: 100%;
     height:auto;
     padding-top: 50px;
@@ -30,7 +40,7 @@
     margin-top:auto;
     margin-bottom:auto;
     margin-left: 20px;
-    background-color: thistle;
+    background-color: white;
     height:60px;
     width:100px;
     float: left;
@@ -43,7 +53,7 @@
 }
 
 .ranking-box{
-    width: 80%;
+    width: 90%;
     height: 800px;
     background-color: khaki;
     margin-top: 100px;
@@ -51,51 +61,117 @@
     margin-left: auto;
     padding-top: 20px;
     border: white 3px solid;
+    flex-wrap:wrap;/*回り込み有効化*/
+    display: flex;
 }
 
+.rankings{
+    height:50%;
+    width: calc(100% / 3);/*3等分*/
+    /* border: white 3px solid; */
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.rankings::before{
+    content: '';
+    background: inherit;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+
+}
+.rankings1{
+    /* position: absolute; */
+    background-image: url('/images/water-3266211_1920.jpg');
+    background-size: cover;
+}
+.rankings2{
+    /* position: absolute; */
+    background-image: url('/images/pair-3798371_1920.jpg');
+    background-size: cover;
+}
+.rankings3{
+    /* position: absolute; */
+    background-image: url('/images/glass-97504_1920.jpg');
+    background-size: cover;
+}
 .ranking{
-    height:25%;
-    width:20%;   
+    margin-left:30%;
+    margin-right:30%;
+    margin-top: 10%;
+    height: 75%;
     border: white 3px solid;
-    background-color: lawngreen;
-    float: left;
-    margin-left:25px;
-    margin-right:25px;
-    margin-top: 30px;
+    border-radius: 3em;
+    z-index: -1;
+    background-color: gray;
+    opacity: 0.8;
 }
 .number{
-    height: 25%;
+    height: 15%;
     width: 100%;
     border: white 1px solid;
     background-color: lightseagreen;
+    margin-top: 15px;
+    border: papayawhip 2px solid;
+    border-radius: 2em;
 }
 .title{
     width:80%;
     height: 100%;
     background-color: lightblue;
     float: left;
+    text-align: center;
+    border-radius: 2em;
 }
 .likes{
     width:20%;
     height: 100%;
     float: left;
     background-color: olive;
-}
-.count{
-    width: 100%;
-    height:25%;
+    text-align: center;
+    border-radius: 2em;
 }
 .heart {
     width: 100%;
     height:75%;
+    padding-top: 7px;
+    height:100%;
 }
-
+.heart a {
+    font-size:1.5em;
+}
 .category{
-    height: 25%;
-    background-color: lawngreen;
+    height: 15%;
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+    color:white;
 }
-
- 
+.category a{
+    color: white;
+}
+.catchflaise h1{
+    text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.fa-heart{
+    color:pink;
+}
+.myheart {
+    color:gray;
+}
 /*--------------------------------------------------
   header page
 ---------------------------------------------------*/
@@ -104,3 +180,78 @@
     width: 500px;
 }
 
+.search{
+    width:85%;
+    background-color: rgb(240, 240, 30);
+    height: 80px;
+    float: right;
+}
+
+.search-box{
+    width: 80%;
+    height: 100px;
+    background-color:white ;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 50px;
+    border: white 3px solid;
+}
+.search_container{
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    border-radius: 50px;
+    height: 2.2em;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+    background: #3879D9;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .search_container input[type="text"]{
+    border: none;
+    height: 6.0em;
+    background-color: #3879D9;
+    margin-left: 20px;
+    color: white;
+    width: 250px;
+    font-size: 1em;
+  }
+
+  .search_container input [type="text"]:focus {
+    outline: 0;
+  }
+  .search_container input[type="submit"]{
+    cursor: pointer;
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    height: 6.0em;
+    border: none;
+    background: none;
+    color: #fff;
+    position: absolute;
+    right: 8px;
+    top: -10px;
+    outline : none;
+  }
+  .search_container ::-webkit-input-placeholder {
+    color: #fff;
+  }
+
+  .inputs{
+      margin-left: 50px;
+      margin-top: auto;
+      margin-bottom: auto;
+      height:100%;
+      width:80%;
+      position: relative;
+      margin-right: auto;
+      margin-left: auto;
+  }
+  .button {
+      margin-right: 200px;
+  }
+  .option{
+      margin:20px 30px;
+  }
