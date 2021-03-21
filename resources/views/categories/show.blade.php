@@ -21,12 +21,11 @@
             @else 
                  <a href="{{ route('login') }}" class="btn btn-secondary btn-sm"><i class="far fa-heart"></i></a>
             @endif
-            {{ $song->likes->count() }}いいね
+            {{ $song->likes->count() }}
         </div>
-    </div>
-    <div class="text">投稿理由：{{ $song -> text }}</div>
-    <a href="{{ $song -> link }}">{{ $song -> link }}</a>
-    <hr class=hr>  
-@endforeach
+        <div class="text">投稿理由：{{ $song -> text }}</div>
+        <a href="{{ $song -> link }}">{{ $song -> link }}</a>
+        <hr class=hr>  
+    @endforeach
 @endforeach
 @endsection

@@ -30,7 +30,6 @@ class MusicController extends Controller
             foreach($c_musics as $music){
                 $music_counts[] = Like::selectRaw('count(music_id) as music_count,music_id')->where('music_id',$music->id)->groupBy('music_id')->orderBy('music_count','desc')->get();
             }
-
             $count = count($music_counts)-1;
             $this->music_count_sort($music_counts, 0, $count);
             $musics = array();
@@ -101,35 +100,27 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
-        $md= Music::get();
-        // dd(count($md));
-        $music_id = count($md);
-        $user_id = Auth::id();
-        $this ->groundlike($request);
-        // return redirect()->route('groundlike', ['title' => $title]);
-        // return redirect('/groundlike') -> with(
-        //     'title' , $title
-        // );
+
+        $this->groundlike();
 
         session()->flash('flash_message', '投稿が完了しました');
         return redirect('/');
 
     }
 
-    public function groundlike($request)
-  {
-    $title =$request-> title;
-    $query = Music::query();
-    $musics= $query->where('title','like','%'.$title.'%' ) -> get();
-    $musics= $query->where ('user_id', Auth::id()) -> get();
-    foreach( $musics as $music){
-        $music_id = $music -> id;
-    }
+    public function groundlike()
+    {
+        $query = Music::query();
+        $music = $query->orderBy('id','desc')->first();
         Like::create([
-            'music_id' => $music_id,
-            'user_id' =>  Auth::id(),
+            'music_id' => $music->id,
+            'user_id' =>  $music->user_id,
         ]);
-  }
+
+        }
+
+    }
+
 
     /**
      * Display the specified resource.
