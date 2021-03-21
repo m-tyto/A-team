@@ -29,7 +29,6 @@ class MusicController extends Controller
         return view('musics.index')->with([
             'categories' => $categories,
             'md' => $md,]);
-        
     }
 
     /**
@@ -39,7 +38,6 @@ class MusicController extends Controller
      */
     public function create()
     {
-        
         $categories = Category::All();
         $artists = Music::select('artist')->distinct()->get();
         $user_id = Auth::id();
@@ -53,7 +51,7 @@ class MusicController extends Controller
             'user_id' => $user_id
             ]);;
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -61,7 +59,7 @@ class MusicController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         $title = $request->input('title');
         $artist = $request->input('artist');
         $check = Music::where('artist',$artist)->where('title',$title)->exists();
@@ -84,6 +82,7 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
+        session()->flash('flash_message', '投稿が完了しました');
         return redirect('/');
     }
 
@@ -93,7 +92,7 @@ class MusicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function search(Request $request)
     {
         //キーワードを受け取る
         $Keyword = $request -> input('keyword');
@@ -106,14 +105,14 @@ class MusicController extends Controller
             $musics= $query->where('title','like','%'.$Keyword.'%' ) -> get();
             $musics= $query->where ('category_id', $Category_ID) -> get();
             $Category = Category::find($Category_ID)-> name;
-            if (empty($musics)){
-                $message = '曲がありません';
-                return view('musics.show')->with([
+            if($i= count($musics)==0){
+                $message = '存在しません';
+                return view('musics.search')->with([
                     'message' => $message,
                 ]);
             }else{
                 $message = '存在しました';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
@@ -124,14 +123,14 @@ class MusicController extends Controller
         // 曲が入力されたら
         elseif(!empty($Keyword))
         {
-            $message = "検索できました";
             $musics= $query->where('title','like','%'.$Keyword.'%') -> get();
-            // dd($musics);
-            // foreach($musics as $music){
-            // $categories=$music-> category ->name;
-            // }
-            // dd($musics1);
-            return view('musics.show')->with([
+            $i=count($musics) ;
+            if($i < 1 ){
+            $message = "曲はありません";
+            }else{
+                $message = "カテゴリが".$i. "存在しました";
+            }
+            return view('musics.search')->with([
                 'message' => $message,
                 'musics' => $musics,
                 'Keyword' => $Keyword,
@@ -146,13 +145,13 @@ class MusicController extends Controller
             // }
             if (empty($musics)){
                 $message = '曲がありません';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                 ]);
             }else{
                 $count = $musics -> count();
                 $message =  '曲が' . $count . '曲あります';
-                return view('musics.show')->with([
+                return view('musics.search')->with([
                     'message' => $message,
                     'musics' => $musics,
                     'Category' => $Category,
@@ -164,39 +163,6 @@ class MusicController extends Controller
         }else {
             $message = "検索結果ありません";
         }
-    }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function like($id)
@@ -233,5 +199,7 @@ class MusicController extends Controller
     //     ]);
     //     return back() ;
     // }
+
+
 
 }

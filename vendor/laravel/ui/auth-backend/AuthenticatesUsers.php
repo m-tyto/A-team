@@ -168,6 +168,8 @@ trait AuthenticatesUsers
             return $response;
         }
 
+        session()->flash('flash_message', 'ログアウトしました');
+
         return $request->wantsJson()
             ? new JsonResponse([], 204)
             : redirect('/');
