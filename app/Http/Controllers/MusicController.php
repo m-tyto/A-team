@@ -101,23 +101,22 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
-<<<<<<< HEAD
         $md= Music::get();
         // dd(count($md));
         $music_id = count($md);
         $user_id = Auth::id();
-
-        return redirect()->route('groundlike', ['title' => $title]);
+        $this -> graundlike($request);
+        // return redirect()->route('groundlike', ['title' => $title]);
         // return redirect('/groundlike') -> with(
         //     'title' , $title
         // );
-=======
+
         session()->flash('flash_message', '投稿が完了しました');
         return redirect('/');
->>>>>>> develop
+
     }
 
-    public function groundlike(Request $request)
+    public function groundlike($request)
   {
     $title =$request-> title;
     $query = Music::query();
