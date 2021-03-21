@@ -1,12 +1,10 @@
 @extends ('layouts.app')
 @section ('content')
-
 <ul>
   @foreach($errors->all() as $error)
       <li>{{ $error }}</li>
   @endforeach
 </ul>
-
 <div class='form'>
   <form action="{{ route('store') }}" method="POST">
   @csrf

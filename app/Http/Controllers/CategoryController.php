@@ -51,7 +51,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        
         $category = Category::find($id) ;
         $c_musics = $category->musics;
         $music_counts = array();

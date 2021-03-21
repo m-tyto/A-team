@@ -5,20 +5,22 @@
 @section('content')
 <h1>{{$category_id = $category -> id }} {{$category->name}}</h1>
 @foreach ($md->where('category_id', $category_id) -> sortByDesc('likescount') as $music)
-                    <div class="number">
-                        <div class="title">{{ $music -> title }}</div>
-                        <div class="likes"> 
-                            <div class="count">{{ $likescount = $music -> likescount }}</div>
-                            <div class="heart">
-                                <form method="post" action="{{route('countlike' )}}" >
-                                    @csrf
-                                    <input type=hidden name = "music" value = "{{ $music }}" >
-                                    <input type=hidden name = "id" value = "{{ $music -> id }}" >
-                                    <input type=hidden name = "likescount" value = "{{  $likescount}}" >
-                                    <input type=submit type="submit" value= いいね >
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach 
+@foreach ($musics as $music ) 
+ @foreach ($music as $song ) 
+    <div class="number">
+        <div class="title">{{ $song -> title }}</div>
+        <div class="likes"> 
+            @if($song->is_liked_by_auth_user())
+            <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm">いいね</a>
+            <i class="fas fa-heart"></i>
+            @else
+            <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm">いいね</a>
+            <i class="far fa-heart"></i>
+            @endif
+            {{ $song->likes->count() }}
+        </div>
+    </div>
+    @endforeach
+  @endforeach
+
 @endsection

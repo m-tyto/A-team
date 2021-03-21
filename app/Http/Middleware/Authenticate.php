@@ -13,17 +13,20 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
-    // protected function redirectTo($request)
-    // {
-    //     if (! $request->expectsJson()) {
-    //         return route('login');
-    //     }
-    // }
-    // public function handle($request, Closure $next)
-    // {
-    //     if (!Auth::check()) { // 非ログインはログインページに飛ばす
-    //         return redirect('/login');
-    //     }
-    //     return $next($request);
-    // }
+    protected function redirectTo($request)
+    {
+        if (! $request->expectsJson()) {
+            return route('login');
+        }
+    }
+    public function handle($request, Closure $next)
+    {
+        if (!Auth::check()) { // 非ログインはログインページに飛ばす
+            return redirect('/login');
+        }
+        return $next($request);
+    }
+
+    
+
 }

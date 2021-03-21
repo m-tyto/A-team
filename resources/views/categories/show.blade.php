@@ -9,12 +9,15 @@
     <div class="number">
         <div class="title">{{ $song -> title }}</div>
         <div class="artist">ARTIST：{{ $song -> artist }}</div>
-        <div class="likes"> 
-            @if($song->is_liked_by_auth_user())
-            <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-heart"></i></a>
-            @else
-            <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
-            @endif
+        <div class="likes">
+            @auth
+                @if($song->is_liked_by_auth_user())
+                <a href="{{ route('music.unlike', ['id' => $song->id]) }}" class="btn btn-success btn-sm"><i class="fas fa-heart"></i></a>
+                @else
+                <a href="{{ route('music.like', ['id' => $song->id]) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
+                @endif
+            @else 
+                <a href="{{ route('login']) }}" class="btn btn-secondary btn-sm"><i class="fas fa-heart"></i></a>
             {{ $song->likes->count() }}いいね
         </div>
     </div>
