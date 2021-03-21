@@ -8,7 +8,7 @@
     <li>{{ $error }}</li>
 @endforeach
 
-<div class="card-body">
+<div class="form">
     <form method="POST" action="{{ route('login') }}">
         @csrf
           
