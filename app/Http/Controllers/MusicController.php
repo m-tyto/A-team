@@ -101,6 +101,7 @@ class MusicController extends Controller
         ]);
 
         Music::create($request->all());
+<<<<<<< HEAD
         $md= Music::get();
         // dd(count($md));
         $music_id = count($md);
@@ -110,6 +111,10 @@ class MusicController extends Controller
         // return redirect('/groundlike') -> with(
         //     'title' , $title
         // );
+=======
+        session()->flash('flash_message', '投稿が完了しました');
+        return redirect('/');
+>>>>>>> develop
     }
 
     public function groundlike(Request $request)

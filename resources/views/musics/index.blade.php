@@ -1,9 +1,16 @@
 @extends('layouts.app')
 @section('content')
     <div class="music">
+<<<<<<< HEAD
         <div class = 'catchflaise'> <h1>あなたに合った音楽を</h1></div>
         <div class='search-box'> 
             <form class="search_container" method="GET" action="{{ route('search') }}" accept-charset="UTF-8">
+=======
+        <div class='search-box'>
+            <div class="category-box"></div>
+            <div class="search">
+                <form method="GET"  action="{{ route('search')}}" accept-charset="UTF-8">
+>>>>>>> develop
                 @csrf
                 <div class ="inputs">
                     <input type="text" name="keyword" placeholder="曲名を入力してください!" size="25" >
