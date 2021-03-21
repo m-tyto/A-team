@@ -117,17 +117,8 @@ class MusicController extends Controller
             'user_id' =>  $music->user_id,
         ]);
 
-        }
-
     }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function search(Request $request)
     {
         //キーワードを受け取る
@@ -216,8 +207,8 @@ class MusicController extends Controller
         else {
             $message = "検索結果ありません";
         }
-    }
 
+    }
     public function like($id)
   {
     Like::create([
@@ -240,44 +231,44 @@ class MusicController extends Controller
         return redirect()->back();
   }
 
-  function music_count_sort(&$list, $first, $last) {
-    $firstPointer = $first;
-    $lastPointer  = $last;
-    //枢軸値を決める。配列の中央値
-    $centerValue  = $list[intVal(($firstPointer + $lastPointer) / 2)][0]->music_count;
+    function music_count_sort(&$list, $first, $last) {
+        $firstPointer = $first;
+        $lastPointer  = $last;
+        //枢軸値を決める。配列の中央値
+        $centerValue  = $list[intVal(($firstPointer + $lastPointer) / 2)][0]->music_count;
 
-    //並び替えができなくなるまで
-    do {
-        //枢軸よりも左側で値が大きい場合はポインターは進める
-        while ($list[$firstPointer][0]->music_count > $centerValue) {
-            $firstPointer++;
-        }
-        //枢軸よりも右側で値が小さい場合はポインターを減らす
-        while ($list[$lastPointer][0]->music_count < $centerValue) {
-            $lastPointer--;
-        }
-        //この操作で左側と右側の値を交換する場所は特定
+        //並び替えができなくなるまで
+        do {
+            //枢軸よりも左側で値が大きい場合はポインターは進める
+            while ($list[$firstPointer][0]->music_count > $centerValue) {
+                $firstPointer++;
+            }
+            //枢軸よりも右側で値が小さい場合はポインターを減らす
+            while ($list[$lastPointer][0]->music_count < $centerValue) {
+                $lastPointer--;
+            }
+            //この操作で左側と右側の値を交換する場所は特定
 
-        if ($firstPointer <= $lastPointer) {
-            //ポインターが逆転していない時は交換可能
-            $tmp                 = $list[$lastPointer];
-            $list[$lastPointer]  = $list[$firstPointer];
-            $list[$firstPointer] = $tmp;
-            //ポインタを進めて分割する位置を指定
-            $firstPointer++;
-            $lastPointer--;
-        }
-    } while ($firstPointer <= $lastPointer);
+            if ($firstPointer <= $lastPointer) {
+                //ポインターが逆転していない時は交換可能
+                $tmp                 = $list[$lastPointer];
+                $list[$lastPointer]  = $list[$firstPointer];
+                $list[$firstPointer] = $tmp;
+                //ポインタを進めて分割する位置を指定
+                $firstPointer++;
+                $lastPointer--;
+            }
+        } while ($firstPointer <= $lastPointer);
 
-    if ($first < $lastPointer) {
-        //左側が比較可能の時
-        $this->music_count_sort($list, $first, $lastPointer);
+        if ($first < $lastPointer) {
+            //左側が比較可能の時
+            $this->music_count_sort($list, $first, $lastPointer);
+        }
+
+        if ($firstPointer < $last) {
+            //右側が比較可能時
+            $this->music_count_sort($list, $firstPointer, $last);
+        }
     }
-
-    if ($firstPointer < $last) {
-        //右側が比較可能時
-        $this->music_count_sort($list, $firstPointer, $last);
-    }
-}
 
 }
